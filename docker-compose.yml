@@ -1,24 +1,34 @@
 services:
-  ros2_humble:
+  ros2-dev:
     build:
       context: .
-      args:
-        - USER_UID=1000
-        - USER_GID=1000
-    image: ros2-humble-moveit:latest
-    container_name: ros2_humble
-    # Use host networking to simplify ROS2 DDS discovery with your host.
-    network_mode: "host"
+      dockerfile: Dockerfile
+    container_name: ros2_humble_dev
+    
+    # Allow GUI apps (RViz, Gazebo)
     environment:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
-    # Mount X11 socket for GUI and the current directory to /home/ros/ws
+      - LIBGL_ALWAYS_SOFTWARE=1
+    
+    # X11 forwarding for GUI
     volumes:
+      # Mount your source code
+      - ./src:/ros2_ws/src
+      # X11 socket for display
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - .:/home/ros/ws_crx
-    working_dir: /home/ros/ws_crx
-    # optionally share devices (e.g. for USB robot interfaces)
-    # devices:
-    #   - /dev/dri:/dev/dri # allow gpu acceleration if available
-    tty: true
+      # GPU support (optional)
+      - /dev/dri:/dev/dri
+    
+    # Network mode for ROS2 communication
+    network_mode: host
+    
+    # Keep container running
     stdin_open: true
+    tty: true
+    
+    # Run as current user (avoids permission issues)
+    user: "${UID:-1000}:${GID:-1000}"
+    
+    # Privileged mode for hardware access (optional)
+    privileged: true
