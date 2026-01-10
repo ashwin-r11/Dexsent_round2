@@ -7,9 +7,9 @@ services:
     
     # Allow GUI apps (RViz, Gazebo)
     environment:
-      - DISPLAY=${DISPLAY}
+      - DISPLAY=:1
       - QT_X11_NO_MITSHM=1
-      - LIBGL_ALWAYS_SOFTWARE=1
+      - XDG_RUNTIME_DIR=/tmp/runtime-root
     
     # X11 forwarding for GUI
     volumes:
@@ -17,8 +17,8 @@ services:
       - ./src:/ros2_ws/src
       # X11 socket for display
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      # GPU support (optional)
-      - /dev/dri:/dev/dri
+      # For X11 auth
+      - ~/.Xauthority:/root/.Xauthority:rw
     
     # Network mode for ROS2 communication
     network_mode: host
@@ -27,8 +27,5 @@ services:
     stdin_open: true
     tty: true
     
-    # Run as current user (avoids permission issues)
-    user: "${UID:-1000}:${GID:-1000}"
-    
-    # Privileged mode for hardware access (optional)
+    # Privileged mode for hardware access
     privileged: true

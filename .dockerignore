@@ -1,0 +1,7 @@
+# Ignore build artifacts
+build/
+install/
+log/
+.git/
+*.pyc
+__pycache__/

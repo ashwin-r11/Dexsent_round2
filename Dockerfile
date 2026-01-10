@@ -35,6 +35,10 @@ RUN apt-get update && apt-get install -y \
 # Create workspace
 WORKDIR /ros2_ws
 
+# Source ROS2 in bashrc (for interactive shells via exec)
+RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc && \
+    echo "if [ -f /ros2_ws/install/setup.bash ]; then source /ros2_ws/install/setup.bash; fi" >> /root/.bashrc
+
 # Copy entrypoint script
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
