@@ -1,0 +1,10 @@
+# ROS build artifacts
+build/
+install/
+log/
+
+# VS Code
+.vscode/
+
+# OS junk
+.DS_Store

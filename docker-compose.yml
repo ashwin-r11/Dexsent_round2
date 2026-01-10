@@ -1,0 +1,24 @@
+services:
+  ros2_humble:
+    build:
+      context: .
+      args:
+        - USER_UID=1000
+        - USER_GID=1000
+    image: ros2-humble-moveit:latest
+    container_name: ros2_humble
+    # Use host networking to simplify ROS2 DDS discovery with your host.
+    network_mode: "host"
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    # Mount X11 socket for GUI and the current directory to /home/ros/ws
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - .:/home/ros/ws_crx
+    working_dir: /home/ros/ws_crx
+    # optionally share devices (e.g. for USB robot interfaces)
+    # devices:
+    #   - /dev/dri:/dev/dri # allow gpu acceleration if available
+    tty: true
+    stdin_open: true
