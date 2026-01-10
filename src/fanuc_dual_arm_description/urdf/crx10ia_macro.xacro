@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- CRX-10iA Arm Macro with prefix for multi-robot setup -->
+  <xacro:macro name="crx10ia_arm" params="prefix parent_link *origin">
+
+    <!-- Arm links -->
+    <link name="${prefix}base_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/visual/base_link.stl"/>
+        </geometry>
+        <material name="${prefix}dark_grey">
+          <color rgba="0.24 0.24 0.24 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/collision/base_link.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}base_joint" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent_link}"/>
+      <child link="${prefix}base_link"/>
+    </joint>
+
+    <link name="${prefix}link_1">
+      <visual>
+        <geometry>
+          <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/visual/link_1.stl"/>
+        </geometry>
+        <material name="${prefix}white">
+          <color rgba="0.86 0.85 0.81 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/collision/link_1.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}link_2">
+      <visual>
+        <geometry>
+          <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/visual/link_2.stl"/>
+        </geometry>
+        <material name="${prefix}white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/collision/link_2.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}link_3">
+      <visual>
+        <geometry>
+          <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/visual/link_3.stl"/>
+        </geometry>
+        <material name="${prefix}white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/collision/link_3.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}link_4">
+      <visual>
+        <geometry>
+          <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/visual/link_4.stl"/>
+        </geometry>
+        <material name="${prefix}white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/collision/link_4.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}link_5">
+      <visual>
+        <geometry>
+          <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/visual/link_5.stl"/>
+        </geometry>
+        <material name="${prefix}white"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/collision/link_5.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}link_6">
+      <visual>
+        <geometry>
+          <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/visual/link_6.stl"/>
+        </geometry>
+        <material name="${prefix}dark_grey"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/collision/link_6.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Arm joints -->
+    <joint name="${prefix}joint_1" type="revolute">
+      <origin rpy="0 0 0" xyz="0 0 0.245"/>
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}link_1"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="100" lower="-3.14159" upper="3.14159" velocity="2.094"/>
+    </joint>
+
+    <joint name="${prefix}joint_2" type="revolute">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <parent link="${prefix}link_1"/>
+      <child link="${prefix}link_2"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="100" lower="-3.14159" upper="3.14159" velocity="2.094"/>
+    </joint>
+
+    <joint name="${prefix}joint_3" type="revolute">
+      <origin rpy="0 0 0" xyz="0 0 0.710"/>
+      <parent link="${prefix}link_2"/>
+      <child link="${prefix}link_3"/>
+      <axis xyz="0 -1 0"/>
+      <limit effort="100" lower="-4.712" upper="4.712" velocity="3.14159"/>
+    </joint>
+
+    <joint name="${prefix}joint_4" type="revolute">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <parent link="${prefix}link_3"/>
+      <child link="${prefix}link_4"/>
+      <axis xyz="-1 0 0"/>
+      <limit effort="100" lower="-3.316" upper="3.316" velocity="3.14159"/>
+    </joint>
+
+    <joint name="${prefix}joint_5" type="revolute">
+      <origin rpy="0 0 0" xyz="0.540 -0.150 0"/>
+      <parent link="${prefix}link_4"/>
+      <child link="${prefix}link_5"/>
+      <axis xyz="0 -1 0"/>
+      <limit effort="100" lower="-3.14159" upper="3.14159" velocity="3.14159"/>
+    </joint>
+
+    <joint name="${prefix}joint_6" type="revolute">
+      <origin rpy="0 0 0" xyz="0.160 0 0"/>
+      <parent link="${prefix}link_5"/>
+      <child link="${prefix}link_6"/>
+      <axis xyz="-1 0 0"/>
+      <limit effort="100" lower="-3.316" upper="3.316" velocity="3.14159"/>
+    </joint>
+
+    <!-- Tool0 frame -->
+    <link name="${prefix}flange"/>
+    <joint name="${prefix}flange_joint" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <parent link="${prefix}link_6"/>
+      <child link="${prefix}flange"/>
+    </joint>
+
+    <link name="${prefix}tool0"/>
+    <joint name="${prefix}tool0_joint" type="fixed">
+      <origin rpy="3.14159 -1.5708 0" xyz="0 0 0"/>
+      <parent link="${prefix}flange"/>
+      <child link="${prefix}tool0"/>
+    </joint>
+
+    <!-- Gripper -->
+    <link name="${prefix}gripper_base_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0.02"/>
+        <geometry>
+          <box size="0.04 0.09 0.04"/>
+        </geometry>
+        <material name="${prefix}gripper_grey">
+          <color rgba="0.3 0.3 0.3 1.0"/>
+        </material>
+      </visual>
+    </link>
+    <joint name="${prefix}gripper_base_joint" type="fixed">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <parent link="${prefix}tool0"/>
+      <child link="${prefix}gripper_base_link"/>
+    </joint>
+
+    <link name="${prefix}gripper_left_finger_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0.04"/>
+        <geometry>
+          <box size="0.02 0.02 0.08"/>
+        </geometry>
+        <material name="${prefix}finger_grey">
+          <color rgba="0.2 0.2 0.2 1.0"/>
+        </material>
+      </visual>
+    </link>
+    <joint name="${prefix}gripper_finger_joint" type="prismatic">
+      <origin rpy="0 0 0" xyz="0 0.0425 0.04"/>
+      <parent link="${prefix}gripper_base_link"/>
+      <child link="${prefix}gripper_left_finger_link"/>
+      <axis xyz="0 -1 0"/>
+      <limit effort="100" lower="0.0" upper="0.04" velocity="0.1"/>
+    </joint>
+
+    <link name="${prefix}gripper_right_finger_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0.04"/>
+        <geometry>
+          <box size="0.02 0.02 0.08"/>
+        </geometry>
+        <material name="${prefix}finger_grey"/>
+      </visual>
+    </link>
+    <joint name="${prefix}gripper_right_finger_joint" type="prismatic">
+      <origin rpy="0 0 0" xyz="0 -0.0425 0.04"/>
+      <parent link="${prefix}gripper_base_link"/>
+      <child link="${prefix}gripper_right_finger_link"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="100" lower="0.0" upper="0.04" velocity="0.1"/>
+      <mimic joint="${prefix}gripper_finger_joint" multiplier="1" offset="0"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

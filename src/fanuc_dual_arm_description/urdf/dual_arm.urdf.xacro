@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<robot name="fanuc_dual_arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Include arm macro -->
+  <xacro:include filename="$(find fanuc_dual_arm_description)/urdf/crx10ia_macro.xacro"/>
+
+  <!-- World base link -->
+  <link name="world"/>
+
+  <!-- Mounting platform -->
+  <link name="platform">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.05"/>
+      <geometry>
+        <box size="1.5 0.8 0.1"/>
+      </geometry>
+      <material name="platform_grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="platform_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 -0.05"/>
+    <parent link="world"/>
+    <child link="platform"/>
+  </joint>
+
+  <!-- Left arm (Robot B): tilted 45° towards the LEFT side (outward) -->
+  <xacro:crx10ia_arm prefix="left_" parent_link="platform">
+    <origin xyz="-0.4 0 0" rpy="0 -0.785 0"/>
+  </xacro:crx10ia_arm>
+
+  <!-- Right arm (Robot A): tilted 45° towards the RIGHT side (outward, mirror image) -->
+  <xacro:crx10ia_arm prefix="right_" parent_link="platform">
+    <origin xyz="0.4 0 0" rpy="0 0.785 0"/>
+  </xacro:crx10ia_arm>
+
+  <!-- ros2_control for both arms -->
+  <ros2_control name="DualArmSystem" type="system">
+    <hardware>
+      <plugin>fake_components/GenericSystem</plugin>
+    </hardware>
+
+    <!-- Left arm joints -->
+    <joint name="left_joint_1">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="left_joint_2">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="left_joint_3">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="left_joint_4">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="left_joint_5">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="left_joint_6">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="left_gripper_finger_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <!-- Right arm joints -->
+    <joint name="right_joint_1">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="right_joint_2">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="right_joint_3">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="right_joint_4">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="right_joint_5">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="right_joint_6">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="right_gripper_finger_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"><param name="initial_value">0.0</param></state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+
+</robot>
