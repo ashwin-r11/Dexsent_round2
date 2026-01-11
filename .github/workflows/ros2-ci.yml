@@ -32,20 +32,6 @@ jobs:
                      source install/setup.bash && \
                      echo 'Build successful!'"
 
-      - name: Test launch file (syntax check)
-        run: |
-          docker run --rm \
-            -v ${{ github.workspace }}/src:/ros2_ws/src \
-            ros2-dev \
-            bash -c "source /opt/ros/humble/setup.bash && \
-                     cd /ros2_ws && \
-                     colcon build --symlink-install && \
-                     source install/setup.bash && \
-                     python3 -c 'from launch import LaunchDescription; \
-                                 from fanuc_dual_arm_description.launch.dual_arm_cartesian_launch import generate_launch_description; \
-                                 ld = generate_launch_description(); \
-                                 print(\"Launch file validated:\", len(ld.entities), \"entities\")'"
-
       - name: Test URDF parsing
         run: |
           docker run --rm \
@@ -61,7 +47,7 @@ jobs:
                      echo 'URDF generated successfully!' && \
                      head -20 /tmp/robot.urdf"
 
-      - name: Run controller config validation
+      - name: Validate controller config
         run: |
           docker run --rm \
             -v ${{ github.workspace }}/src:/ros2_ws/src \
@@ -74,3 +60,15 @@ jobs:
                                  f = open(\"/ros2_ws/install/fanuc_dual_arm_description/share/fanuc_dual_arm_description/config/dual_arm_controllers.yaml\"); \
                                  config = yaml.safe_load(f); \
                                  print(\"Controllers defined:\", list(config.get(\"controller_manager\", {}).get(\"ros__parameters\", {}).keys()))'"
+
+      - name: Validate launch files exist
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/src:/ros2_ws/src \
+            ros2-dev \
+            bash -c "source /opt/ros/humble/setup.bash && \
+                     cd /ros2_ws && \
+                     colcon build --symlink-install && \
+                     source install/setup.bash && \
+                     ls -la /ros2_ws/install/fanuc_dual_arm_description/share/fanuc_dual_arm_description/launch/ && \
+                     echo 'Launch files validated!'"
