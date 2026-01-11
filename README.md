@@ -3,6 +3,7 @@
 A complete ROS2 Humble implementation of a dual-arm robotic system using two Fanuc CRX-10iA collaborative robots with Robotiq grippers.
 
 ![ROS2 Humble](https://img.shields.io/badge/ROS2-Humble-blue)
+[![ROS2 Build & Test](https://github.com/ashwin-r11/Dexsent_round2/actions/workflows/ros2-ci.yml/badge.svg)](https://github.com/ashwin-r11/Dexsent_round2/actions/workflows/ros2-ci.yml)
 ![License](https://img.shields.io/badge/License-BSD--3--Clause-green)
 
 ## Version History / Milestones
@@ -41,16 +42,25 @@ https://github.com/user-attachments/assets/working-demo
 ## Repository Structure
 
 ```
-dexsent-crx10ia-ros2/
+Dexsent_round2/
+├── .github/workflows/
+│   └── ros2-ci.yml              # GitHub Actions CI/CD
 ├── src/
 │   ├── fanuc_crx10ia_description/   # Single arm URDF + meshes
 │   └── fanuc_dual_arm_description/  # Dual-arm system + control
 ├── docs/
-│   ├── task1_robot_setup.md         # Task 1 documentation
+│   ├── imgs/                    # Reference images
+│   ├── vids/                    # Demo videos
+│   ├── references/              # Research papers
+│   ├── task1_robot_setup.md     # Task 1 documentation
 │   ├── task2_cartesian_control.md   # Task 2 documentation
-│   └── architecture.md              # System architecture
+│   ├── architecture.md          # System architecture
+│   ├── troubleshooting.md       # Common issues & fixes
+│   ├── flex.md                  # Project highlights
+│   └── my_exp.md                # Development experience
 ├── docker-compose.yml
 ├── Dockerfile
+├── docker-entrypoint.sh
 └── README.md
 ```
 
