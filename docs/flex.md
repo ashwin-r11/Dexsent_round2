@@ -5,7 +5,7 @@
 ## 1. Collision-Free Movement
 The robot arms respect each other's space — no passing through each other!
 
-![Gripper Collision Prevention](docs/imgs/gripper_collision_closeup.png)
+![Gripper Collision Prevention](/docs/imgs/gripper_collision_closeup.png)
 
 ---
 
@@ -26,7 +26,7 @@ Complete Docker setup with:
 ## 4. Hand-Drawn Reference Sketches
 Created custom reference sketches for the dual-arm mounting configuration.
 
-![Mounting Sketches](docs/imgs/Note_sketches.jpeg)
+![Mounting Sketches](/docs/imgs/Note_sketches.jpeg)
 
 ---
 

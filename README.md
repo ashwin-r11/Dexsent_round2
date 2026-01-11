@@ -24,6 +24,18 @@ This project implements a dual-arm robotic workcell with:
 - Cartesian control capability
 - Synchronized dual-arm motion
 
+## Demo Videos
+
+### Task 1: Single Arm with Gripper
+https://github.com/user-attachments/assets/task1-demo
+
+[Download Task 1 Demo](docs/vids/task1%20demo.mp4)
+
+### Task 2: Dual-Arm Synchronized Motion
+https://github.com/user-attachments/assets/working-demo
+
+[Download Working Demo](docs/vids/working%20demo.mp4)
+
 ---
 
 ## Repository Structure
