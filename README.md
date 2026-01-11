@@ -110,6 +110,12 @@ ros2 launch fanuc_crx10ia_description display.launch.py
 ros2 launch fanuc_crx10ia_description bringup.launch.py
 ```
 
+**Run Demo:**
+```bash
+# In another terminal
+python3 /ros2_ws/src/fanuc_crx10ia_description/scripts/trajectory_demo.py
+```
+
 ---
 
 #### Task 2: Dual-Arm with Cartesian Control
