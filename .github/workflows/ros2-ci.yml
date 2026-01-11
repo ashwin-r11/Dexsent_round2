@@ -1,0 +1,76 @@
+name: ROS2 Build & Test
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: |
+          docker build -t ros2-dev .
+
+      - name: Build ROS2 workspace
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/src:/ros2_ws/src \
+            ros2-dev \
+            bash -c "source /opt/ros/humble/setup.bash && \
+                     cd /ros2_ws && \
+                     colcon build --symlink-install && \
+                     source install/setup.bash && \
+                     echo 'Build successful!'"
+
+      - name: Test launch file (syntax check)
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/src:/ros2_ws/src \
+            ros2-dev \
+            bash -c "source /opt/ros/humble/setup.bash && \
+                     cd /ros2_ws && \
+                     colcon build --symlink-install && \
+                     source install/setup.bash && \
+                     python3 -c 'from launch import LaunchDescription; \
+                                 from fanuc_dual_arm_description.launch.dual_arm_cartesian_launch import generate_launch_description; \
+                                 ld = generate_launch_description(); \
+                                 print(\"Launch file validated:\", len(ld.entities), \"entities\")'"
+
+      - name: Test URDF parsing
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/src:/ros2_ws/src \
+            ros2-dev \
+            bash -c "source /opt/ros/humble/setup.bash && \
+                     cd /ros2_ws && \
+                     colcon build --symlink-install && \
+                     source install/setup.bash && \
+                     ros2 run xacro xacro \
+                       /ros2_ws/install/fanuc_dual_arm_description/share/fanuc_dual_arm_description/urdf/dual_arm.urdf.xacro \
+                       > /tmp/robot.urdf && \
+                     echo 'URDF generated successfully!' && \
+                     head -20 /tmp/robot.urdf"
+
+      - name: Run controller config validation
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/src:/ros2_ws/src \
+            ros2-dev \
+            bash -c "source /opt/ros/humble/setup.bash && \
+                     cd /ros2_ws && \
+                     colcon build --symlink-install && \
+                     source install/setup.bash && \
+                     python3 -c 'import yaml; \
+                                 f = open(\"/ros2_ws/install/fanuc_dual_arm_description/share/fanuc_dual_arm_description/config/dual_arm_controllers.yaml\"); \
+                                 config = yaml.safe_load(f); \
+                                 print(\"Controllers defined:\", list(config.get(\"controller_manager\", {}).get(\"ros__parameters\", {}).keys()))'"
