@@ -28,12 +28,12 @@ This project implements a dual-arm robotic workcell with:
 ## Demo Videos
 
 ### Task 1: Single Arm with Gripper
-https://github.com/user-attachments/assets/task1-demo
+https://github.com/user-attachments/assets/d5566bed-1d36-4f47-a5c9-10631cfb67cf
 
 [Download Task 1 Demo](docs/vids/task1%20demo.mp4)
 
 ### Task 2: Dual-Arm Synchronized Motion
-https://github.com/user-attachments/assets/working-demo
+https://github.com/user-attachments/assets/0d8bb7f4-822b-4086-a894-8e726680761c
 
 [Download Working Demo](docs/vids/working%20demo.mp4)
 
