@@ -219,10 +219,10 @@
       </visual>
     </link>
     <joint name="${prefix}gripper_finger_joint" type="prismatic">
-      <origin rpy="0 0 0" xyz="0 0.0425 0.04"/>
+      <origin rpy="0 0 0" xyz="0 0.01 0.04"/>
       <parent link="${prefix}gripper_base_link"/>
       <child link="${prefix}gripper_left_finger_link"/>
-      <axis xyz="0 -1 0"/>
+      <axis xyz="0 1 0"/>
       <limit effort="100" lower="0.0" upper="0.04" velocity="0.1"/>
     </joint>
 
@@ -236,10 +236,10 @@
       </visual>
     </link>
     <joint name="${prefix}gripper_right_finger_joint" type="prismatic">
-      <origin rpy="0 0 0" xyz="0 -0.0425 0.04"/>
+      <origin rpy="0 0 0" xyz="0 -0.01 0.04"/>
       <parent link="${prefix}gripper_base_link"/>
       <child link="${prefix}gripper_right_finger_link"/>
-      <axis xyz="0 1 0"/>
+      <axis xyz="0 -1 0"/>
       <limit effort="100" lower="0.0" upper="0.04" velocity="0.1"/>
       <mimic joint="${prefix}gripper_finger_joint" multiplier="1" offset="0"/>
     </joint>

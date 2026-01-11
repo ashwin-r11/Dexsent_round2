@@ -63,6 +63,14 @@ def generate_launch_description():
             cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'right_arm_controller'],
             output='screen'
         ),
+        ExecuteProcess(
+            cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'left_gripper_controller'],
+            output='screen'
+        ),
+        ExecuteProcess(
+            cmd=['ros2', 'control', 'load_controller', '--set-state', 'active', 'right_gripper_controller'],
+            output='screen'
+        ),
         
         # Cartesian Controller Node
         Node(
