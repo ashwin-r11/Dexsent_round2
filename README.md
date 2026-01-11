@@ -98,6 +98,22 @@ source install/setup.bash
 
 ### 3. Launch
 
+#### Task 1: Single Arm with Gripper
+
+**Display Mode (with joint sliders):**
+```bash
+ros2 launch fanuc_crx10ia_description display.launch.py
+```
+
+**Control Mode (with ros2_control):**
+```bash
+ros2 launch fanuc_crx10ia_description bringup.launch.py
+```
+
+---
+
+#### Task 2: Dual-Arm with Cartesian Control
+
 **Display Mode (with joint sliders):**
 ```bash
 ros2 launch fanuc_dual_arm_description display.launch.py
