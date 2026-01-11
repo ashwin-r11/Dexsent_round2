@@ -21,6 +21,16 @@
           <mesh filename="package://fanuc_crx10ia_description/meshes/crx10ial/collision/base_link.stl"/>
         </geometry>
       </collision>
+      
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0.355"/>
+        <geometry>
+          <cylinder radius="0.05" length="0.41"/>
+        </geometry>
+        <material name="${prefix}white">
+          <color rgba="0.86 0.85 0.81 1.0"/>
+        </material>
+      </visual>
     </link>
 
     <joint name="${prefix}base_joint" type="fixed">
@@ -117,7 +127,7 @@
 
     <!-- Arm joints -->
     <joint name="${prefix}joint_1" type="revolute">
-      <origin rpy="0 0 0" xyz="0 0 0.245"/>
+      <origin rpy="0 0 0" xyz="0 0 0.710"/>
       <parent link="${prefix}base_link"/>
       <child link="${prefix}link_1"/>
       <axis xyz="0 0 1"/>
