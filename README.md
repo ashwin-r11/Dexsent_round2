@@ -52,6 +52,7 @@ Dexsent_round2/
 │   ├── imgs/                    # Reference images
 │   ├── vids/                    # Demo videos
 │   ├── references/              # Research papers
+│   ├── report.pdf               # Technical report (1-2 pages)
 │   ├── task1_robot_setup.md     # Task 1 documentation
 │   ├── task2_cartesian_control.md   # Task 2 documentation
 │   ├── architecture.md          # System architecture
@@ -75,8 +76,9 @@ Dexsent_round2/
 ### 1. Clone & Build
 
 ```bash
-git clone <repo-url>
-cd dexsent-crx10ia-ros2
+git clone https://github.com/ashwin-r11/Dexsent_round2.git
+
+cd  Dexsent_round2
 
 # Allow X11 forwarding
 xhost +local:docker
@@ -132,6 +134,8 @@ See [Task 1 Documentation](docs/task1_robot_setup.md)
 - Pick-and-place demo with gripper control
 
 See [Task 2 Documentation](docs/task2_cartesian_control.md)
+
+📄 **[Technical Report (PDF)](docs/report.pdf)** — Architecture, challenges, solutions, and design decisions
 
 ---
 
